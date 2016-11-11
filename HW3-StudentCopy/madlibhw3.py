@@ -13,18 +13,19 @@ print("START*******")
 import nltk # requires some downloading/installing dependencies to use all its features; numpy is especially tricky to install
 import random
 from nltk import word_tokenize,sent_tokenize
+from nltk.book import text2
 
 
-
+text2 = text2[0:150]
 #print (nltk.corpus.gutenberg.fileids())   
-moby_dick = nltk.corpus.gutenberg.words("melville-moby_dick.txt")   #assign text to variable moby_dick
+# moby_dick = nltk.corpus.gutenberg.words("melville-moby_dick.txt")   #assign text to variable moby_dick
 #print (moby_dick)
 
 #print (moby_dick)
 # tokens = nltk.word_tokenize(moby_dick))
 
 
-tagged = nltk.pos_tag(moby_dick)[0:150]    #tagging each word with a part of speech. Results in tuples (word, POS)
+tagged = nltk.pos_tag(text2)[0:150]    #tagging each word with a part of speech. Results in tuples (word, POS)
 #print (tagged)
 
 
