@@ -8,6 +8,24 @@
 # Be prepared to change the search term during demo.
 
 
+
+import sys
+
+def uprint(*objects, sep=' ', end='\n', file=sys.stdout):
+
+    enc = file.encoding
+
+    if enc == 'UTF-8':
+
+        print(*objects, sep=sep, end=end, file=file)
+
+    else:
+
+        f = lambda obj: str(obj).encode(enc, errors='backslashreplace').decode(enc)
+
+        print(*map(f, objects), sep=sep, end=end, file=file)
+
+
 import tweepy
 import nltk
 from textblob import TextBlob
@@ -26,15 +44,18 @@ api = tweepy.API(auth)
 
 tweets = api.search("Jay Cutler")
 
-
+total_polarity = 0
+total_sentiment = 0
 
 for tweet in tweets:
 	
-	print(tweet.text)
+	uprint(tweet.text)
 	analysis = TextBlob(tweet.text)
-	print(analysis.sentiment)
+	total_polarity += analysis.sentiment.polarity
+	total_sentiment += analysis.sentiment.subjectivity
+	uprint(analysis.sentiment)
 
 
 
-print("Average subjectivity is")
-print("Average polarity is")
+print("Average subjectivity is", total_sentiment/len(tweets) )
+print("Average polarity is", total_polarity/len(tweets))
