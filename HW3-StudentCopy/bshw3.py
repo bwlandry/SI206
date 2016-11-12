@@ -32,9 +32,12 @@ def uprint(*objects, sep=' ', end='\n', file=sys.stdout):
 
 
 
-base_url = "http://collemc.people.si.umich.edu/data/bshw3StarterFile.html"
-r = requests.get(base_url)
-soup = BeautifulSoup(r.text, "html.parser")
+# base_url = "http://collemc.people.si.umich.edu/data/bshw3StarterFile.html"
+# r = requests.get(base_url)
+# soup = BeautifulSoup(r.text, "html.parser")
+import urllib.request
+html = urllib.request.urlopen('http://collemc.people.si.umich.edu/data/bshw3StarterFile.html').read()
+soup = BeautifulSoup(html, 'html.parser')
 
 
 pretty = soup.prettify()
@@ -43,10 +46,10 @@ pretty = soup.prettify()
 new = pretty.replace("student", "AMAZING student")
 
 
-new = pretty.replace("https://testbed.files.wordpress.com/2012/09/bsi_exposition_041316_192.jpg", "/media/Headshot.jpg")
+new_html = new.replace("https://testbed.files.wordpress.com/2012/09/bsi_exposition_041316_192.jpg", "media/Headshot.jpg")
 #uprint(new)
 
-new = pretty.replace("logo2.png", "/media/logo.png")
+new_html2= new_html.replace("logo2.png", "media/logo.png")
 
 
 # images = soup('img')
@@ -54,6 +57,6 @@ new = pretty.replace("logo2.png", "/media/logo.png")
 
 
 f = open("bshw3_html.html", 'w')
-f.write(new)
+f.write(new_html2)
 f.close
 
